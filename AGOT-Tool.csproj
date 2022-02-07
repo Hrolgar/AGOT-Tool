@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <RootNamespace>AGOT</RootNamespace>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="ExcelDataReader" Version="3.7.0-develop00310" />
+      <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0-develop00310" />
+      <PackageReference Include="Spire.XLS" Version="12.1.0" />
+      <PackageReference Include="WindowsAPICodePack" Version="1.1.2" />
+    </ItemGroup>
+</Project>
