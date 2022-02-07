@@ -77,24 +77,12 @@ public class GenerateLandedTitle : GenerateClasses
             if (!kingdomName.IsEmptyOrNull())
             {
                 kingdom = new Kingdom(kingdomName, kingdomColors.IsEmptyOrNull() ? provinceColors : kingdomColors.HexToRgb());
-                // if (!defForm.ToString().IsEmptyOrNull())
-                // {
-                //     var obj = new object[] { new { canCreate }, new { aiPri }, new { defForm } };
-                //
-                //     kingdom.AddExtra(obj);
-                // }
                 empire?.AddKingdom(kingdom);
             }
 
             if (!duchyName.IsEmptyOrNull())
             {
                 duchy = new Duchy(duchyName, duchyColors.IsEmptyOrNull() ? provinceColors : duchyColors.HexToRgb(), !kingdomName.IsEmptyOrNull());
-                // if (!defForm.ToString().IsEmptyOrNull())
-                // {
-                //     var obj = new object[] { new { canCreate }, new { aiPri }, new { defForm } };
-                //
-                //     duchy.AddExtra(obj);
-                // }
                 kingdom?.AddDuchy(duchy);
             }
 
@@ -104,13 +92,6 @@ public class GenerateLandedTitle : GenerateClasses
                 duchy.AddCounty(county);
 
                 var newCapitalName = $"c_{county.Name.RemoveExtra()}_d_{duchy.Id}_c_{county.Id}\n";
-                
-                // if (!defForm.ToString().IsEmptyOrNull())
-                // {
-                //     var obj = new object[] { new { canCreate }, new { aiPri }, new { defForm } };
-                //
-                //     county.AddExtra(obj);
-                // }
                 
                 if (!duchyName.IsEmptyOrNull())
                 {
@@ -129,13 +110,6 @@ public class GenerateLandedTitle : GenerateClasses
             if (!baronyName.IsEmptyOrNull())
             {
                 var barony = new Barony(baronyName, provinceColors, provId, culture, religion, holdingType, provinceHistory, terrain);
-                
-                // if (!defForm.ToString().IsEmptyOrNull())
-                // {
-                //     var obj = new object[] { new { canCreate }, new { aiPri }, new { defForm } };
-                //
-                //     barony.AddExtra(obj);
-                // }
                 
                 county?.AddBarony(barony);
             }
