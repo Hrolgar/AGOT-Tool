@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using AGOT;
 using AGOT.Base;
+using AGOT.Extensions;
 using AGOT.GenerateFiles;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -8,13 +9,9 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 namespace AGOT;
 public partial class MainWindow
 {
-    public const string ImportXls = @"C:\Users\Helgi\Desktop\Development\CKIII - Excel Exporter\AGOT-Tool\TestFile\provinceDef.xls";
-    public const string ExportLandedTitles = @"C:\Users\Helgi\Desktop\AgotTestFolder\common\landed_titles\";
-    public const string ExportHistory = @"C:\Users\Helgi\Desktop\AgotTestFolder\history\provinces\";
-    public const string ExportDefaultMap = @"C:\Users\Helgi\Desktop\AgotTestFolder\map_data\default.map";
-    public const string ExportDefinition = @"C:\Users\Helgi\Desktop\AgotTestFolder\definition.csv";
-    public const string ExportProvinceTerrain = @"C:\Users\Helgi\Desktop\AgotTestFolder\common\province_terrain\province_terrain.txt";
-    
+    private string _importXls = "";
+    private string _exportDirectory = "";
+
     private List<Empire> _empires = new();
     
     private GenerateLandedTitle _generateLandedTitle;
@@ -25,62 +22,19 @@ public partial class MainWindow
 
     private void Init()
     {
-        var workbook = new Workbook();
-        workbook.LoadFromFile(ImportXls);
-        var westerosLandWorksheet = workbook.Worksheets[1]; //WESTEROS LAND Sheet
-        var westerosSeaProvincesWorksheet = workbook.Worksheets[2]; //WESTEROS Sea Provinces Sheet
-        var westerosLandDataTable = westerosLandWorksheet.ExportDataTable();
-        var westerosSeaDataTable = westerosSeaProvincesWorksheet.ExportDataTable();
-    
         _generateLandedTitle = new GenerateLandedTitle(_empires);
-        // _generateLandedTitle.Generate(ExportLandedTitles, westerosLandDataTable);
-    
         _generateHistoryProvinces = new GenerateHistoryProvinces(_empires);
-        // _generateHistoryProvinces.Generate(ExportHistory);
-    
-        // _generateDefaultMap.Generate(ExportDefaultMap, westerosSeaDataTable);
-    
         _generateDefinition = new GenerateDefinition(_empires);
-        // _generateDefinition.Generate(ExportDefinition);
-    
         _generateProvinceTerrain = new GenerateProvinceTerrain(_empires);
-        // _generateProvinceTerrain.Generate(ExportProvinceTerrain);
     }
-    
-    
+
     public MainWindow()
     {
-
         InitializeComponent();
         Init();
-
+        GenerateButton.IsEnabled = false;
     }
-    private void LTButton_OnClick (object sender, RoutedEventArgs e)
-    {
-        var openFolderDialog = new CommonOpenFileDialog()
-        {
-            IsFolderPicker = true,
-            InitialDirectory = $@"{ExportLandedTitles}",
-        };
-
-        if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
-        {
-            FileNameLtTextBox.Text = openFolderDialog.FileName;
-        }
-    }
-    private void HButton_OnClick (object sender, RoutedEventArgs e)
-    {
-        var openFolderDialog = new CommonOpenFileDialog()
-        {
-            IsFolderPicker = true,
-            InitialDirectory = @"C:\Documents\",
-        };
-
-        if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
-        {
-            FileNameHTextBox.Text = openFolderDialog.FileName;
-        }
-    }
+    
     private void ExcelFile_OnClick (object sender, RoutedEventArgs e)
     {
         var openFileDialog = new OpenFileDialog
@@ -92,7 +46,46 @@ public partial class MainWindow
         var result = openFileDialog.ShowDialog();
         if (result == true)
         {
-            excelFileTextBlock.Text = openFileDialog.FileName;
+            _importXls = openFileDialog.FileName;
+            ExcelFileTextBlock.Text = openFileDialog.FileName;
         }
+        if (ExcelFileTextBlock.Text.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
+        GenerateButton.IsEnabled = true;
+    }
+    
+    private void NewFiles_OnClick (object sender, RoutedEventArgs e)
+    {
+        var openFolderDialog = new CommonOpenFileDialog()
+        {
+            IsFolderPicker = true,
+            InitialDirectory = @"C:\Documents\"
+        };
+    
+        if (openFolderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+        {
+            _exportDirectory = openFolderDialog.FileName;
+            NewFilesTb.Text = openFolderDialog.FileName;
+        }
+        if (ExcelFileTextBlock.Text.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
+        GenerateButton.IsEnabled = true;
+    }
+
+
+    private void GenerateFiles_OnClick (object sender, RoutedEventArgs e)
+    {
+        if (ExcelFileTextBlock.Text.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
+        
+        var workbook = new Workbook();
+        workbook.LoadFromFile(_importXls);
+        var westerosLandWorksheet = workbook.Worksheets[1]; //WESTEROS LAND Sheet
+        var westerosSeaProvincesWorksheet = workbook.Worksheets[2]; //WESTEROS Sea Provinces Sheet
+        var westerosLandDataTable = westerosLandWorksheet.ExportDataTable();
+        var westerosSeaDataTable = westerosSeaProvincesWorksheet.ExportDataTable();
+
+        _generateLandedTitle.Generate(_exportDirectory, westerosLandDataTable);
+        _generateHistoryProvinces.Generate(_exportDirectory);
+        _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
+        _generateDefinition.Generate(_exportDirectory);
+        _generateProvinceTerrain.Generate(_exportDirectory);
     }
 }

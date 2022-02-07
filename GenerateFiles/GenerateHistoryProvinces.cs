@@ -1,16 +1,19 @@
 ﻿using AGOT.Base;
 using AGOT.Extensions;
+
 namespace AGOT.GenerateFiles;
+
 public class GenerateHistoryProvinces : GenerateClasses
 {
-    public GenerateHistoryProvinces(List<Empire> empires) : base(empires) => Empires = empires;
-    
-    public void Generate(string generatedFile)
+    public GenerateHistoryProvinces (List<Empire> empires) : base(empires) => Empires = empires;
+
+    public void Generate (string generatedFile)
     {
+        var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\history\provinces\");
         foreach (var eKingdom in Empires.SelectMany(empire => empire.Kingdoms))
         {
-            var file = generatedFile;
-            file += $"00_agot_k_{eKingdom.Name.RemoveExtra().Replace(" ", "_")}_prov.txt";
+            var file = folderStruct.ToString();
+            file += @$"00_agot_k_{eKingdom.Name.RemoveExtra().Replace(" ", "_")}_prov.txt";
 
             var txt = "";
             foreach (var eKingdomDuchy in eKingdom.Duchies)
@@ -40,7 +43,7 @@ public class GenerateHistoryProvinces : GenerateClasses
                     }
                 }
             }
-            
+
             var hWriter = new StreamWriter(file, false, Encoding.Default);
             hWriter.WriteLine(txt);
             hWriter.Flush();

@@ -56,7 +56,10 @@ public class GenerateDefaultMap
         Helpers.GenerateMapZones(lakes, "LAKES", "lakes",ref txt);
         Helpers.GenerateMapZones(impassableMountains, "WASTELAND", "impassable_mountains",ref txt);
         
-        var hWriter = new StreamWriter(generatedFile, false, Encoding.Default);
+        var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\map_data\");
+        var fileName = @$"{folderStruct}\default.map";
+        
+        var hWriter = new StreamWriter(fileName, false, Encoding.Default);
         hWriter.WriteLine(txt);
         hWriter.Flush();
         hWriter.Close();

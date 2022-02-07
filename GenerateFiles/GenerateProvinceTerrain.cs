@@ -7,7 +7,9 @@ public class GenerateProvinceTerrain : GenerateClasses
 
     public void Generate(string generatedFile)
     {
-        var writer = new StreamWriter(generatedFile, false, Encoding.Default);
+        var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\map_data\");
+        var fileName = @$"{folderStruct}\province_terrain.txt";
+        var writer = new StreamWriter(fileName, false, Encoding.Default);
         var txt = "default=plains\n";
         foreach (var eKingdom in Empires.SelectMany(empire => empire.Kingdoms))
         {

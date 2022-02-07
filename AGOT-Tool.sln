@@ -12,5 +12,6 @@ Global
 		{BE6DDB27-936B-4E45-B06B-7081604E916B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE6DDB27-936B-4E45-B06B-7081604E916B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE6DDB27-936B-4E45-B06B-7081604E916B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE6DDB27-936B-4E45-B06B-7081604E916B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

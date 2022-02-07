@@ -7,7 +7,8 @@ public class GenerateDefinition : GenerateClasses
     
     public void Generate (string generatedFile)
     {
-        var writer = new StreamWriter(generatedFile, false, Encoding.Default);
+        var fileName = $@"{generatedFile}\definition.csv";
+        var writer = new StreamWriter(fileName, false, Encoding.Default);
         var csv = "0;0;0;0;x;x;\n";
         foreach (var eKingdom in Empires.SelectMany(empire => empire.Kingdoms))
         {

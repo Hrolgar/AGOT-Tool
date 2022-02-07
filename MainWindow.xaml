@@ -5,85 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Background="DarkGray"
-        Title="MainWindow" Height="600" Width="1000">
-    
+        Title="MainWindow" Height="450" Width="600"
+        ResizeMode="CanMinimize">
+
     <Grid ShowGridLines="false">
-        <Grid.ColumnDefinitions>    
-            <ColumnDefinition Width="120"></ColumnDefinition>    
-            <ColumnDefinition></ColumnDefinition>    
-            <ColumnDefinition></ColumnDefinition>    
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="90"/>
-            <RowDefinition/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="35" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
-            <TextBlock Text="NameOfTool" FontSize="18" HorizontalAlignment="Center"/>
-        </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="2" Margin="10,20,10,20">
-            <RadioButton Content="Map Tool" Height="40" FontSize="14" Style="{StaticResource MenuButtonStyle}"/>
-            <RadioButton Content="Tool 2" Height="40" FontSize="14" Style="{StaticResource MenuButtonStyle}"/>
+        
+        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2">
+            <TextBlock Text="AGOT-Tool" FontSize="18" HorizontalAlignment="Center" Margin="10, 15"/>
         </StackPanel>
         
-        <StackPanel Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="A Hrolgar creation" FontSize="10" HorizontalAlignment="Center" TextAlignment="Center"
-                       TextWrapping="Wrap" Margin="5,5,5,5"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Grid >
-                <StackPanel Grid.Row="0" Grid.Column="0">
-                    <Label Content="Choose location of excel file:" 
-                           Target="{Binding ElementName=excelFile }"/>
-                    <DockPanel>
-                        <Button Content="Choose Folder" x:Name="excelFile"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center" Height="30" Click="ExcelFile_OnClick"/>
-                        <TextBox Margin="15,15"  Background="White" BorderThickness="0"
-                                 Height="25" 
-                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-                                 Name="excelFileTextBlock" />
-                            
-                    </DockPanel>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <Grid >
-                <StackPanel Grid.Row="0" Grid.Column="0">
-                        <Label Content="Choose location for new landed titles file:" 
-                               Target="{Binding ElementName=LTButton }"/>
-                        <DockPanel>
-                            <Button Content="Choose Folder" x:Name="LTButton"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center" Height="30" Click="LTButton_OnClick"/>
-                            <TextBox Margin="15,15"  Background="White" BorderThickness="0"
-                                     Height="25" 
-                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-                                     Name="FileNameLtTextBox" />
-                            
-                        </DockPanel>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <Grid >
-                <StackPanel Grid.Row="0" Grid.Column="0">
-                    <Label Content="Choose location for history provinces:" 
-                           Target="{Binding ElementName=HButton }"/>
-                    <DockPanel>
-                        <Button Content="Choose Folder" x:Name="HButton"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center" Height="30" Click="HButton_OnClick"/>
-                        <TextBox Margin="15,15"  Background="White" BorderThickness="0"
-                                 Height="25" 
-                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
-                                 Name="FileNameHTextBox" />
-                    </DockPanel>
-                </StackPanel>
-            </Grid>
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,60,10,20">
+            <RadioButton Content="Map Tool" Height="40" FontSize="14" Style="{StaticResource MenuButtonStyle}"/>
         </StackPanel>
 
+        <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="A Hrolgar and Skodje creation" FontSize="10" HorizontalAlignment="Center" TextAlignment="Center"
+                       TextWrapping="Wrap" Margin="5,5,5,1" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Margin="20, 20, 20,20" VerticalAlignment="Center">
+            <Grid>
+                <StackPanel>
+                    <Label Content="Choose location of excel file:"
+                           Target="{Binding ElementName=ExcelFile }" />
+                    <DockPanel>
+                        <Button Content="Choose File" x:Name="ExcelFile"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" Height="30" Click="ExcelFile_OnClick" 
+                                Padding="10,0" Width="100"/>
+                        <TextBox Margin="20,15" Background="White" BorderThickness="0"
+                                 Height="25"
+                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                 Name="ExcelFileTextBlock" />
+
+                    </DockPanel>
+                    <Label Content="Choose a folder for the new files:"
+                           Target="{Binding ElementName=NewFilesButton }" />
+                    <DockPanel>
+                        <Button Content="Choose Folder" x:Name="NewFilesButton"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" Height="30" Click="NewFiles_OnClick" 
+                                Padding="10,0" Width="100"/>
+                        <TextBox Margin="20,15" Background="White" BorderThickness="0"
+                                 Height="25"
+                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                 Name="NewFilesTb" />
+
+                    </DockPanel>
+                    <Button Height="30" Margin="20,20" Content="Generate Files"
+                            Click="GenerateFiles_OnClick" x:Name="GenerateButton"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

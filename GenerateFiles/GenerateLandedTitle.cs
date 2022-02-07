@@ -7,7 +7,9 @@ public class GenerateLandedTitle : GenerateClasses
     
     public void Generate (string generatedFilePath, DataTable dataTable)
     {
-        var streamWriter = new StreamWriter(generatedFilePath, false, Encoding.Default);
+        var folderStruct = Directory.CreateDirectory(@$"{generatedFilePath}\common\landed_titles\");
+        var fileName = @$"{folderStruct}\01_agot_landed_titles.txt";
+        var streamWriter = new StreamWriter(fileName, false, Encoding.Default);
 
         var dict = new Dictionary<int, string>()
         {
