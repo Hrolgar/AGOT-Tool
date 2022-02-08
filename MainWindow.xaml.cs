@@ -29,6 +29,8 @@ public partial class MainWindow
         InitializeComponent();
         Init();
         GenerateButton.IsEnabled = false;
+        NewFilesTb.IsEnabled = false;
+        ExcelFileTextBlock.IsEnabled = false;
     }
     
     private void ExcelFile_OnClick (object sender, RoutedEventArgs e)
@@ -83,5 +85,11 @@ public partial class MainWindow
         _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
         _generateDefinition.Generate(_exportDirectory);
         _generateProvinceTerrain.Generate(_exportDirectory);
+
+        _exportDirectory = "";
+        ExcelFileTextBlock.Text = "";
+        NewFilesTb.Text = "";
+        _importXls = "";
+        GenerateButton.IsEnabled = false;
     }
 }
