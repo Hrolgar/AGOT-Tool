@@ -7,7 +7,7 @@ public class GenerateProvinceTerrain : GenerateClasses
 
     public void Generate(string generatedFile)
     {
-        var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\map_data\");
+        var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\common\province_terrain\");
         var fileName = @$"{folderStruct}\province_terrain.txt";
         var writer = new StreamWriter(fileName, false, Encoding.Default);
         var txt = "default=plains\n";
