@@ -56,12 +56,12 @@ public class GenerateLandedTitle : GenerateClasses
             {
                 empire = new Empire(empireName, empireColors.IsEmptyOrNull() ? provinceColors : empireColors.HexToRgb());
 
-                if (!defForm.IsEmptyOrNull() && defForm.Contains("e-"))
-                {
-                    var e = defForm.Replace("e-", "");
-                    var s = e.Remove(3);
-                    Console.WriteLine(s);
-                }
+                // if (!defForm.IsEmptyOrNull() && defForm.Contains("e-"))
+                // {
+                //     var e = defForm.Replace("e-", "");
+                //     var s = e.Remove(3);
+                //     Console.WriteLine(s);
+                // }
                 
                 // if (!defForm.ToString().IsEmptyOrNull())
                 // {

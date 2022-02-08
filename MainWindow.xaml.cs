@@ -30,7 +30,7 @@ public partial class MainWindow
         Init();
         GenerateButton.IsEnabled = false;
         NewFilesTb.IsEnabled = false;
-        ExcelFileTextBlock.IsEnabled = false;
+        ExcelFileTb.IsEnabled = false;
     }
     
     private void ExcelFile_OnClick (object sender, RoutedEventArgs e)
@@ -38,16 +38,16 @@ public partial class MainWindow
         var openFileDialog = new OpenFileDialog
         {
             DefaultExt = ".xls",
-            Filter = "Excel Files|*.xls;*.xlsx;*.xlsm",
+            Filter = "Excel Files|*.xls;",
             InitialDirectory = @"C:\Documents\",
         };
         var result = openFileDialog.ShowDialog();
         if (result == true)
         {
             _importXls = openFileDialog.FileName;
-            ExcelFileTextBlock.Text = openFileDialog.FileName;
+            ExcelFileTb.Text = openFileDialog.FileName;
         }
-        if (ExcelFileTextBlock.Text.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
+        if (_importXls.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
         GenerateButton.IsEnabled = true;
     }
     
@@ -64,14 +64,14 @@ public partial class MainWindow
             _exportDirectory = openFolderDialog.FileName;
             NewFilesTb.Text = openFolderDialog.FileName;
         }
-        if (ExcelFileTextBlock.Text.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
+        if (_importXls.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
         GenerateButton.IsEnabled = true;
     }
 
 
     private void GenerateFiles_OnClick (object sender, RoutedEventArgs e)
     {
-        if (ExcelFileTextBlock.Text.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
+        if (_importXls.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
         
         var workbook = new Workbook();
         workbook.LoadFromFile(_importXls);
@@ -86,8 +86,11 @@ public partial class MainWindow
         _generateDefinition.Generate(_exportDirectory);
         _generateProvinceTerrain.Generate(_exportDirectory);
 
+        // Application.Current.Shutdown();
+        _empires = new List<Empire>();
+        Init();
         _exportDirectory = "";
-        ExcelFileTextBlock.Text = "";
+        ExcelFileTb.Text = "";
         NewFilesTb.Text = "";
         _importXls = "";
         GenerateButton.IsEnabled = false;

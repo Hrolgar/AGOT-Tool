@@ -45,7 +45,7 @@
                         <TextBox Margin="20,15" Background="White" BorderThickness="0"
                                  Height="25"
                                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                 Name="ExcelFileTextBlock" />
+                                 Name="ExcelFileTb" />
 
                     </DockPanel>
                     <Label Content="Choose a folder for the new files:"
