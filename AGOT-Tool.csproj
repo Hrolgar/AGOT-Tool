@@ -16,4 +16,8 @@
       <PackageReference Include="Spire.XLS" Version="12.1.0" />
       <PackageReference Include="WindowsAPICodePack" Version="1.1.2" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Map-Tool Version v.1" />
+    </ItemGroup>
 </Project>
