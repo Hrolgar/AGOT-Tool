@@ -95,17 +95,11 @@ public class Kingdom : Base
 
 public class Duchy : Base
 {
-    private static int _dId;
-    public int Id { get; set; }
-
     public string Capital { get; set; } = null!;
     public readonly List<County> Counties = new();
 
-    public Duchy (string? name, string? color, bool resetId = false) : base(name, color)
+    public Duchy (string? name, string? color) : base(name, color)
     {
-        if (resetId) _dId = 0;
-
-        Id = ++_dId;
         Name = name;
         Color = color;
     }
@@ -114,7 +108,7 @@ public class Duchy : Base
     public string Print()
     {
         var txt =
-            $"\t\td_{Name.RemoveExtra()}_d_{Id} = {{" +
+            $"\t\td_{Name.RemoveExtra()} = {{" +
             $"\n\t\t\tcolor = {{ {Color} }}\n" +
             $"\t\t\tcolor2 = {{ {Color2} }}\n";
         if (DefForm == true)
@@ -122,7 +116,7 @@ public class Duchy : Base
             txt += "\n\t\t\tdefinite_form = yes\n";
         }
         txt += $"\n\t\t\tcapital = {Capital}\n";
-        txt = Counties.Aggregate(txt, (current, county) => current + county.Print(Id));
+        txt = Counties.Aggregate(txt, (current, county) => current + county.Print());
         txt += "\t\t}\n";
         return txt;
     }
@@ -130,24 +124,19 @@ public class Duchy : Base
 
 public class County : Base
 {
-    private static int _cId;
-    public int Id { get; set; }
-
     public readonly List<Barony> Baronies = new();
-    public County (string? name, string? color, bool resetId = false) : base(name, color)
+    public County (string? name, string? color) : base(name, color)
     {
-        if (resetId) _cId = 0;
-        Id = ++_cId;
         Name = name;
         Color = color;
     }
 
     public void AddBarony (Barony newBarony) => Baronies.Add(newBarony);
 
-    public string Print (int duchyId)
+    public string Print ()
     {
         var txt =
-            $"\t\t\tc_{Name.RemoveExtra()}_d_{duchyId}_c_{Id} = {{" +
+            $"\t\t\tc_{Name.RemoveExtra()} = {{" +
             $"\n\t\t\t\tcolor = {{ {Color} }}\n" +
             $"\t\t\t\tcolor2 = {{ {Color2} }}\n";
         if (DefForm == true)
@@ -162,8 +151,6 @@ public class County : Base
 
 public class Barony : Base
 {
-    private static int _bId;
-    public int Id { get; set; }
     public int ProvinceId { get; set; }
     
     public string Culture { get; set; }
@@ -175,7 +162,6 @@ public class Barony : Base
 
     public Barony (string? name, string? color, int provinceId, string culture, string religion, string holdingType, string provinceHistory, string terrain) : base(name, color)
     {
-        Id = ++_bId;
         Name = name;
         Color = color;
         ProvinceId = provinceId;
@@ -188,7 +174,7 @@ public class Barony : Base
 
     public string Print()
     {
-        var txt = $"\n\t\t\t\tb_{Name.RemoveExtra()}_{Id} = {{" +
+        var txt = $"\n\t\t\t\tb_{Name.RemoveExtra()} = {{" +
                   $"\n\t\t\t\t\tprovince = {ProvinceId}\n" +
                   $"\t\t\t\t\tcolor = {{ {Color} }}\n" +
                   $"\t\t\t\t\tcolor2 = {{ {Color2} }}\n";

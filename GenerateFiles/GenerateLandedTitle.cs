@@ -80,16 +80,16 @@ public class GenerateLandedTitle : GenerateClasses
 
             if (!duchyName.IsEmptyOrNull())
             {
-                duchy = new Duchy(duchyName, duchyColors.IsEmptyOrNull() ? provinceColors : duchyColors.HexToRgb(), !kingdomName.IsEmptyOrNull());
+                duchy = new Duchy(duchyName, duchyColors.IsEmptyOrNull() ? provinceColors : duchyColors.HexToRgb());
                 kingdom?.AddDuchy(duchy);
             }
 
             if (!countyName.IsEmptyOrNull())
             {
-                county = new County(countyName, countyColors.IsEmptyOrNull() ? provinceColors : countyColors.HexToRgb(), !duchyName.IsEmptyOrNull());
+                county = new County(countyName, countyColors.IsEmptyOrNull() ? provinceColors : countyColors.HexToRgb());
                 duchy.AddCounty(county);
 
-                var newCapitalName = $"c_{county.Name.RemoveExtra()}_d_{duchy.Id}_c_{county.Id}\n";
+                var newCapitalName = $"c_{county.Name.RemoveExtra()}\n";
                 
                 if (!duchyName.IsEmptyOrNull())
                 {

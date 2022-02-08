@@ -15,7 +15,7 @@ public class GenerateDefinition : GenerateClasses
         {
             foreach (var barony in eKingdom.Duchies.SelectMany(duchy => duchy.Counties.SelectMany(county => county.Baronies)))
             {
-                csv += string.Join(";", barony.Id, barony.ColorRgbCsv, barony.Name?.ToUpper(), "x;\n");
+                csv += string.Join(";", barony.ProvinceId, barony.ColorRgbCsv, barony.Name?.ToUpper(), "x;\n");
             }
         }
         writer.WriteLine(csv);

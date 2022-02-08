@@ -17,7 +17,7 @@ public class GenerateProvinceTerrain : GenerateClasses
             {
                 if (!barony.Terrain.IsEmptyOrNull())
                 {
-                    txt += $"{barony.Id}={barony.Terrain}\n";
+                    txt += $"{barony.ProvinceId}={barony.Terrain}\n";
                 }
             }
         }
