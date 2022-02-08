@@ -1,10 +1,6 @@
-﻿using System.Diagnostics;
-using AGOT;
-using AGOT.Base;
+﻿using AGOT.Base;
 using AGOT.Extensions;
 using AGOT.GenerateFiles;
-using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace AGOT;
 public partial class MainWindow

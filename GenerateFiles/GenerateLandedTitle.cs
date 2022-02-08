@@ -13,13 +13,11 @@ public class GenerateLandedTitle : GenerateClasses
 
         var dict = new Dictionary<int, string>()
         {
-            { 0, "Comment" }, { 1, "Province ID" }, { 2, "Province Color" },
-            { 3, "Province name" }, { 4, "(O)cean, (R)ivers, (L)akes, (W)astelands" }, { 5, "Renamings" }, { 6, "Empire" },
-            { 7, "Kingdom" }, { 8, "Duchy" }, { 9, "County" }, { 10, "Culture" }, { 11, "Religion" },
-            { 12, "Terrain" }, { 13, "Climate" }, { 14, "Holdyng Type" }, { 15, "County Title Color" }, { 16, "Duchy Title Color" },
-            { 17, "Kingdom Title Color" },
-            { 18, "Empire Title Color" }, { 19, "definite_form" }, { 20, "ai_primary_priority" }, { 21, "can_create" }, { 22, "can_create_on_partition" },
-            { 23, "can_be_named_after_dynasty" }, { 24, "Province History" }
+            { 0, "Comment" }, { 1, "Province ID" }, { 2, "Province Color" }, { 3, "Province name" }, { 4, "(O)cean, (R)ivers, (L)akes, (W)astelands" }, 
+            { 5, "Renamings" }, { 6, "Empire" }, { 7, "Kingdom" }, { 8, "Duchy" }, { 9, "County" }, { 10, "Culture" }, { 11, "Religion" },
+            { 12, "Terrain" }, { 13, "Climate" }, { 14, "Holdyng Type" }, { 15, "County Title Color" }, { 16, "Duchy Title Color" }, 
+            { 17, "Kingdom Title Color" }, { 18, "Empire Title Color" }, { 19, "definite_form" }, { 20, "ai_primary_priority" }, 
+            { 21, "can_create" }, { 22, "can_create_on_partition" }, { 23, "can_be_named_after_dynasty" }, { 24, "Province History" }
         };
 
         Empire empire = null!;
