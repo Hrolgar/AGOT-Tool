@@ -2,6 +2,17 @@
 public static class Extensions
 {
     public static int ToInt (this object? i) => !int.TryParse((string?)i, out var a) ? 0 : a;
+
+    // public static object? ToIntOrElseClean<T> (this T i , string path)
+    // {
+    //     if (int.TryParse(i?.ToString(), out var a))
+    //     {
+    //         return a;
+    //     }
+    //     File.WriteAllText(path, string.Empty);
+    //     return default;
+    // }
+    
     public static string RemoveExtra (this string? txt) => txt.Replace(" ", "_").Replace("'", "").ToLower();
 
 
@@ -19,8 +30,5 @@ public static class Extensions
                $"{Convert.ToInt32(hex.Substring(4, 2), 16)}";
     }
 
-    // public static void ToCsv (this DataTable dataTable, string filePath)
-    // {
-    //     var sw = 
-    // }
+    public static bool ListIsEmpty (this List<int> list) => list.Count <= 0;
 }

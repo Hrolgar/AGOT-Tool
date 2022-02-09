@@ -1,4 +1,5 @@
-﻿using AGOT.Extensions;
+﻿using System.Windows.Navigation;
+using AGOT.Extensions;
 namespace AGOT.GenerateFiles;
 public class GenerateDefaultMap
 {
@@ -8,15 +9,21 @@ public class GenerateDefaultMap
         {
             { 0, "Comment" }, { 1, "Province ID" }, { 2, "Red" },{ 3, "Green" },{ 4, "Blue" }, { 5, "ProvinceName" },{ 6, "EmptyCol" },
         };
+        var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\map_data\");
+        var fileName = @$"{folderStruct}\default.map";
         
-        var txt = "definitions = \"definition.csv\"\n" +
+        var txt = "#max_provinces = 1466\n" +
+                  "definitions = \"definition.csv\"\n" +
                   "provinces = \"provinces.png\"\n" +
+                  "#positions  = \"positions.txt\"\n" +
                   "rivers = \"rivers.png\"\n" +
+                  "#terrain_definition  = \"terrain.txt\"\n" +
                   "topology = \"heightmap.heightmap\"\n" +
+                  "#tree_definition  = \"trees.bmp\"\n" +
                   "continent = \"continent.txt\"\n" +
                   "adjacencies = \"adjacencies.csv\"\n" +
+                  "#climate = \"climate.txt\"\n" +
                   "island_region = \"island_region.txt\"\n" +
-                  "geographical_region = \"geographical_region.txt\"\n" +
                   "seasons = \"seasons.txt\"\n\n";
 
         var seaZones = new List<int>();
@@ -27,9 +34,19 @@ public class GenerateDefaultMap
         
         foreach (DataRow row in dataTable.Rows)
         {
-            var provId = row.ItemArray[1].ToInt();
+            var provId = 0;
+            if (int.TryParse(row.ItemArray[1]?.ToString(), out var a))
+            {
+                provId = a;
+            }
+            else
+            {
+                File.WriteAllText(fileName, string.Empty);
+                return;
+            }
+
             var seaZone = row.ItemArray[6]?.ToString();
-            
+
             switch (seaZone)
             {
                 case "SZ":
@@ -50,15 +67,13 @@ public class GenerateDefaultMap
             }
 
         }
+        
         Helpers.GenerateMapZones(seaZones, "SEA ZONES", "sea_zones",ref txt);
         Helpers.GenerateMapZones(impassableSea, "IMPASSABLE SEAS", "impassable_seas",ref txt);
         Helpers.GenerateMapZones(riverProvinces, "MAJOR RIVERS", "river_provinces",ref txt);
         Helpers.GenerateMapZones(lakes, "LAKES", "lakes",ref txt);
         Helpers.GenerateMapZones(impassableMountains, "WASTELAND", "impassable_mountains",ref txt);
-        
-        var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\map_data\");
-        var fileName = @$"{folderStruct}\default.map";
-        
+
         var hWriter = new StreamWriter(fileName, false, Encoding.Default);
         hWriter.WriteLine(txt);
         hWriter.Flush();

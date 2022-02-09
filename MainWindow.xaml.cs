@@ -79,14 +79,13 @@ public partial class MainWindow
         var westerosSeaProvincesWorksheet = workbook.Worksheets[2]; //WESTEROS Sea Provinces Sheet
         var westerosLandDataTable = westerosLandWorksheet.ExportDataTable();
         var westerosSeaDataTable = westerosSeaProvincesWorksheet.ExportDataTable();
-
+        
         _generateLandedTitle.Generate(_exportDirectory, westerosLandDataTable);
         _generateHistoryProvinces.Generate(_exportDirectory);
-        _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
         _generateDefinition.Generate(_exportDirectory);
+        _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
         _generateProvinceTerrain.Generate(_exportDirectory);
 
-        // Application.Current.Shutdown();
         _empires = new List<Empire>();
         Init();
         _exportDirectory = "";
