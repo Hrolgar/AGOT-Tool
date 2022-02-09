@@ -38,13 +38,9 @@ public class Empire : Base
 
     public string Print()
     {
-        var txt =
-            "@correct_culture_primary_score = 100\n" +
-            "@better_than_the_alternatives_score = 50\n" +
-            "@always_primary_score = 1000\n\n" +
-            $"e_{Name.RemoveExtra()} = {{" +
-            $"\n\tcolor = {{ {Color} }}\n" +
-            $"\tcolor2 = {{ {Color2} }}\n";
+        var txt = $"e_{Name.RemoveExtra()} = {{" +
+                  $"\n\tcolor = {{ {Color} }}\n" +
+                  $"\tcolor2 = {{ {Color2} }}\n";
         if (DefForm == true)
         {
             txt += "\n\tdefinite_form = yes\n";

@@ -112,7 +112,9 @@ public class GenerateLandedTitle : GenerateClasses
                 county?.AddBarony(barony);
             }
         }
-        var txt = "";
+        var txt = "@correct_culture_primary_score = 100\n" +
+                  "@better_than_the_alternatives_score = 50\n" +
+                  "@always_primary_score = 1000\n\n";
         Empires.ForEach(e => txt += e.Print());
         streamWriter.WriteLine(txt);
         streamWriter.Flush();
