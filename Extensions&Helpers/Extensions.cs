@@ -1,13 +1,20 @@
-﻿using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-
-namespace AGOT.Extensions;
+﻿namespace AGOT.ExtensionsHelpers;
 public static class Extensions
 {
+    [DllImport("Kernel32")]
+    public static extern void AllocConsole();
     public static int ToInt (this object? i) => !int.TryParse((string?)i, out var a) ? 0 : a;
     
     public static string RemoveExtra (this string? txt) => txt.Replace(" ", "_").Replace("'", "").ToLower();
+    public static string RemoveExtra (this string? txt, bool workSheet = false)
+    {
+        if (workSheet)
+        {
+            txt.Replace(" ", "").ToLower();
+        }
+        return txt;
+    }
+    public static string RemoveSpaceAndCaps (this string txt) => txt.Replace(" ", "").ToLower();
     
     public static bool IsEmptyOrNull (this string? myString) => myString is "" or null;
 

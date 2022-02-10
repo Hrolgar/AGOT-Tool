@@ -1,5 +1,6 @@
-﻿using AGOT.Base;
-using AGOT.Extensions;
+﻿using System.Runtime.InteropServices;
+using AGOT.Base;
+using AGOT.ExtensionsHelpers;
 using AGOT.GenerateFiles;
 
 namespace AGOT;
@@ -76,25 +77,32 @@ public partial class MainWindow
         
         var workbook = new Workbook();
         workbook.LoadFromFile(_importXls);
-        var westerosLandWorksheet = workbook.Worksheets[1]; //WESTEROS LAND Sheet
-        var westerosSeaProvincesWorksheet = workbook.Worksheets[2]; //WESTEROS Sea Provinces Sheet
+        // foreach (var worksheet in workbook.Worksheets)
+        // {
+        //     Extensions.AllocConsole();
+        //     Console.WriteLine(worksheet.Name);
+        // }
+        var westerosLandWorksheet = workbook.Worksheets[workbook.Worksheets
+            .First(w => w.Name.RemoveSpaceAndCaps() == "westerosland").Index];
+        var westerosSeaProvincesWorksheet = workbook.Worksheets[workbook.Worksheets
+            .First(w => w.Name.RemoveSpaceAndCaps() == "westerosseaprovinces").Index];
         var westerosLandDataTable = westerosLandWorksheet.ExportDataTable();
         var westerosSeaDataTable = westerosSeaProvincesWorksheet.ExportDataTable();
 
         var generatedLandedT = _generateLandedTitle.Generate(_exportDirectory, westerosLandDataTable);
-        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedLandedT, "Landed Title"));
+        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedLandedT, "Landed Title"));
         
         var generatedHistoryP = _generateHistoryProvinces.Generate(_exportDirectory);
-        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedHistoryP, "Default Map"));
+        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedHistoryP, "Default Map"));
 
         var generatedDefinition = _generateDefinition.Generate(_exportDirectory);
-        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedDefinition, "Default Map"));
+        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedDefinition, "Default Map"));
 
         var generatedDefaultM = _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
-        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedDefaultM, "Default Map", " Due to Excel sheet being empty."));
+        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedDefaultM, "Default Map", " Due to Excel sheet being empty."));
 
        var generatedProvinceT = _generateProvinceTerrain.Generate(_exportDirectory);
-       StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedProvinceT, "Province Terrain"));
+       StatusPanel.Children.Add(Extensions.StatusTextBox(generatedProvinceT, "Province Terrain"));
        
        _empires = new List<Empire>();
         Init();

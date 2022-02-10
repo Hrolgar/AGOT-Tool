@@ -1,5 +1,4 @@
-﻿using System.Windows.Navigation;
-using AGOT.Extensions;
+﻿using AGOT.ExtensionsHelpers;
 namespace AGOT.GenerateFiles;
 public class GenerateDefaultMap
 {
@@ -11,6 +10,7 @@ public class GenerateDefaultMap
         };
         var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\map_data\");
         var fileName = @$"{folderStruct}\default.map";
+        var hWriter = new StreamWriter(fileName, false, Encoding.Default);
         
         var txt = "#max_provinces = 1466\n" +
                   "definitions = \"definition.csv\"\n" +
@@ -41,7 +41,9 @@ public class GenerateDefaultMap
             }
             else
             {
-                File.WriteAllText(fileName, string.Empty);
+                hWriter.WriteLine(txt);
+                hWriter.Flush();
+                hWriter.Close();
                 return false;
             }
 
@@ -74,7 +76,6 @@ public class GenerateDefaultMap
         Helpers.GenerateMapZones(lakes, "LAKES", "lakes",ref txt);
         Helpers.GenerateMapZones(impassableMountains, "WASTELAND", "impassable_mountains",ref txt);
 
-        var hWriter = new StreamWriter(fileName, false, Encoding.Default);
         hWriter.WriteLine(txt);
         hWriter.Flush();
         hWriter.Close();

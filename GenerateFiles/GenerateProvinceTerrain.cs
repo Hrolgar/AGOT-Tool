@@ -1,5 +1,5 @@
 ﻿using AGOT.Base;
-using AGOT.Extensions;
+using AGOT.ExtensionsHelpers;
 namespace AGOT.GenerateFiles;
 public class GenerateProvinceTerrain : GenerateClasses
 {

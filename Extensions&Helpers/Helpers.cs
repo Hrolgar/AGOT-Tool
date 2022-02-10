@@ -1,4 +1,4 @@
-﻿namespace AGOT.Extensions;
+﻿namespace AGOT.ExtensionsHelpers;
 public static class Helpers
 {
     public static void GenerateMapZones (List<int> ids, string commentTxt, string insideTxt, ref string txt)
