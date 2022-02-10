@@ -1,4 +1,8 @@
-﻿namespace AGOT.Extensions;
+﻿using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+
+namespace AGOT.Extensions;
 public static class Extensions
 {
     public static int ToInt (this object? i) => !int.TryParse((string?)i, out var a) ? 0 : a;
@@ -31,4 +35,14 @@ public static class Extensions
     }
 
     public static bool ListIsEmpty (this List<int> list) => list.Count <= 0;
+
+    public static UIElement StatusTextBox(bool success, string txt, string reason = "")
+    {
+        var textBox = new TextBox()
+        {
+            Text = $"{txt} {(success ? "successfully generated." : "failed to generate.")} {reason}", 
+            Foreground = success ? Brushes.Green : Brushes.DarkRed, Name = "txtB", Background = Brushes.DarkGray, TextWrapping = TextWrapping.Wrap,
+        };
+        return textBox;
+    }
 }

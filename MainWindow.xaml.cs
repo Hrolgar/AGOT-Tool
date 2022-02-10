@@ -71,6 +71,7 @@ public partial class MainWindow
 
     private void GenerateFiles_OnClick (object sender, RoutedEventArgs e)
     {
+        StatusPanel.Children.Clear();
         if (_importXls.IsEmptyOrNull() || _exportDirectory.IsEmptyOrNull()) return;
         
         var workbook = new Workbook();
@@ -79,14 +80,23 @@ public partial class MainWindow
         var westerosSeaProvincesWorksheet = workbook.Worksheets[2]; //WESTEROS Sea Provinces Sheet
         var westerosLandDataTable = westerosLandWorksheet.ExportDataTable();
         var westerosSeaDataTable = westerosSeaProvincesWorksheet.ExportDataTable();
-        
-        _generateLandedTitle.Generate(_exportDirectory, westerosLandDataTable);
-        _generateHistoryProvinces.Generate(_exportDirectory);
-        _generateDefinition.Generate(_exportDirectory);
-        _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
-        _generateProvinceTerrain.Generate(_exportDirectory);
 
-        _empires = new List<Empire>();
+        var generatedLandedT = _generateLandedTitle.Generate(_exportDirectory, westerosLandDataTable);
+        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedLandedT, "Landed Title"));
+        
+        var generatedHistoryP = _generateHistoryProvinces.Generate(_exportDirectory);
+        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedHistoryP, "Default Map"));
+
+        var generatedDefinition = _generateDefinition.Generate(_exportDirectory);
+        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedDefinition, "Default Map"));
+
+        var generatedDefaultM = _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
+        StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedDefaultM, "Default Map", " Due to Excel sheet being empty."));
+
+       var generatedProvinceT = _generateProvinceTerrain.Generate(_exportDirectory);
+       StatusPanel.Children.Add(Extensions.Extensions.StatusTextBox(generatedProvinceT, "Province Terrain"));
+       
+       _empires = new List<Empire>();
         Init();
         _exportDirectory = "";
         ExcelFileTb.Text = "";

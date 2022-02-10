@@ -5,7 +5,7 @@ public class GenerateLandedTitle : GenerateClasses
 {
     public GenerateLandedTitle(List<Empire> empires) : base(empires)=>  Empires = empires;
     
-    public void Generate (string generatedFilePath, DataTable dataTable)
+    public bool Generate (string generatedFilePath, DataTable dataTable)
     {
         var folderStruct = Directory.CreateDirectory(@$"{generatedFilePath}\common\landed_titles\");
         var fileName = @$"{folderStruct}\01_landed_titles.txt";
@@ -119,5 +119,6 @@ public class GenerateLandedTitle : GenerateClasses
         streamWriter.WriteLine(txt);
         streamWriter.Flush();
         streamWriter.Close();
+        return true;
     }
 }

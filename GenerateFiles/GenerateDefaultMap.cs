@@ -3,7 +3,7 @@ using AGOT.Extensions;
 namespace AGOT.GenerateFiles;
 public class GenerateDefaultMap
 {
-    public void Generate (string generatedFile, DataTable dataTable)
+    public bool Generate (string generatedFile, DataTable dataTable)
     {
         var dict = new Dictionary<int, string>()
         {
@@ -42,7 +42,7 @@ public class GenerateDefaultMap
             else
             {
                 File.WriteAllText(fileName, string.Empty);
-                return;
+                return false;
             }
 
             var seaZone = row.ItemArray[6]?.ToString();
@@ -78,5 +78,6 @@ public class GenerateDefaultMap
         hWriter.WriteLine(txt);
         hWriter.Flush();
         hWriter.Close();
+        return true;
     }
 }

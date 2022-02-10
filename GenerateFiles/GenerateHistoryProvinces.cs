@@ -7,7 +7,7 @@ public class GenerateHistoryProvinces : GenerateClasses
 {
     public GenerateHistoryProvinces (List<Empire> empires) : base(empires) => Empires = empires;
 
-    public void Generate (string generatedFile)
+    public bool Generate (string generatedFile)
     {
         var folderStruct = Directory.CreateDirectory(@$"{generatedFile}\history\provinces\");
         foreach (var eKingdom in Empires.SelectMany(empire => empire.Kingdoms))
@@ -43,12 +43,11 @@ public class GenerateHistoryProvinces : GenerateClasses
                     }
                 }
             }
-
             var hWriter = new StreamWriter(file, false, Encoding.Default);
             hWriter.WriteLine(txt);
             hWriter.Flush();
             hWriter.Close();
         }
-
+        return true;
     }
 }

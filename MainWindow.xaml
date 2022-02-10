@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Background="DarkGray"
-        Title="MainWindow" Height="450" Width="600"
+        Title="MainWindow" Height="450" Width="800"
         ResizeMode="CanMinimize">
 
     <Grid ShowGridLines="false">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -19,7 +20,7 @@
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="2">
+        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Grid.ColumnSpan="3">
             <TextBlock Text="AGOT-Tool" FontSize="18" HorizontalAlignment="Center" Margin="10, 15"/>
         </StackPanel>
         
@@ -65,6 +66,11 @@
                             Click="GenerateFiles_OnClick" x:Name="GenerateButton"/>
                 </StackPanel>
             </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2"
+                    Margin="20, 80, 20,20" 
+                    x:Name="StatusPanel">
+            
         </StackPanel>
     </Grid>
 </Window>
