@@ -5,21 +5,35 @@ public class Base
     public string? Name { get; set; }
     protected string? Color { get; set; }
     protected string Color2 { get; set; }
+    // protected int Indentation { get; set; }
     protected string? CanCreate;
     protected string? AiPri;
-    protected bool? DefForm;
     protected Base (string? name, string? color)
     {
         Name = name;
         Color = color;
         Color2 = "255 255 255";
+        // Indentation = indentation;
     }
 
     public void AddExtra (object[] extras)
     {
         CanCreate = extras[0].ToString();
         AiPri = extras[1].ToString();
-        DefForm = (bool?)extras[2].GetType().GetProperty("defForm")?.GetValue(extras[2], null);
+    }
+    
+    protected string Indent(int indentationNumber, bool indentFirst = true)
+    {
+        var txt = "";
+        for (var i = 0; i < indentationNumber; i++)
+        {
+            if (i == 0 && !indentFirst)
+            {
+                continue;
+            }
+            txt += "\t";
+        }
+        return txt;
     }
 }
 
@@ -41,10 +55,9 @@ public class Empire : Base
         var txt = $"e_{Name.RemoveExtra()} = {{" +
                   $"\n\tcolor = {{ {Color} }}\n" +
                   $"\tcolor2 = {{ {Color2} }}\n";
-        if (DefForm == true)
-        {
+        if (Name!.Contains("The"))
             txt += "\n\tdefinite_form = yes\n";
-        }
+        
         txt += $"\n\tcapital = {Capital}\n";
         // if (!AiPri.IsEmptyOrNull())
         // {
@@ -78,10 +91,8 @@ public class Kingdom : Base
             $"\tk_{Name.RemoveExtra()} = {{" +
             $"\n\t\tcolor = {{ {Color} }}\n" +
             $"\t\tcolor2 = {{ {Color2} }}\n";
-        if (DefForm == true)
-        {
+        if (Name!.Contains("The"))
             txt += "\n\t\tdefinite_form = yes\n";
-        }
         txt += $"\n\t\tcapital = {Capital}\n";
         txt = Duchies.Aggregate(txt, (current, duchy) => current + duchy.Print());
         txt += "\t}\n";
@@ -107,10 +118,8 @@ public class Duchy : Base
             $"\t\td_{Name.RemoveExtra()} = {{" +
             $"\n\t\t\tcolor = {{ {Color} }}\n" +
             $"\t\t\tcolor2 = {{ {Color2} }}\n";
-        if (DefForm == true)
-        {
+        if (Name!.Contains("The"))
             txt += "\n\t\t\tdefinite_form = yes\n";
-        }
         txt += $"\n\t\t\tcapital = {Capital}\n";
         txt = Counties.Aggregate(txt, (current, county) => current + county.Print());
         txt += "\t\t}\n";
@@ -135,10 +144,8 @@ public class County : Base
             $"\t\t\tc_{Name.RemoveExtra()} = {{" +
             $"\n\t\t\t\tcolor = {{ {Color} }}\n" +
             $"\t\t\t\tcolor2 = {{ {Color2} }}\n";
-        if (DefForm == true)
-        {
-            txt += "\n\t\t\tdefinite_form = yes\n";
-        }
+        if (Name!.Contains("The"))
+            txt += "\n\t\t\t\tdefinite_form = yes\n";
         txt = Baronies.Aggregate(txt, (current, barony) => current + barony.Print());
         txt += "\n\t\t\t}\n";
         return txt;
@@ -174,10 +181,8 @@ public class Barony : Base
                   $"\n\t\t\t\t\tprovince = {ProvinceId}\n" +
                   $"\t\t\t\t\tcolor = {{ {Color} }}\n" +
                   $"\t\t\t\t\tcolor2 = {{ {Color2} }}\n";
-        if (DefForm == true)
-        {
-            txt += "\n\t\t\t\tdefinite_form = yes\n";
-        }
+        if (Name!.Contains("The"))
+            txt += "\n\t\t\t\t\tdefinite_form = yes\n";
         txt += $"\t\t\t\t}}";
         return txt;
     }

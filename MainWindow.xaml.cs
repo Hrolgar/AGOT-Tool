@@ -98,10 +98,5 @@ public partial class MainWindow
        
        _empires = new List<Empire>();
         Init();
-        _exportDirectory = "";
-        ExcelFileTb.Text = "";
-        NewFilesTb.Text = "";
-        _importXls = "";
-        GenerateButton.IsEnabled = false;
     }
 }

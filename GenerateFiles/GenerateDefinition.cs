@@ -11,15 +11,13 @@ public class GenerateDefinition : GenerateClasses
         var fileName = $@"{folderStruct}\definition.csv";
         var writer = new StreamWriter(fileName, false, Encoding.Default);
         var csv = "0;0;0;0;x;x;\n";
-        // foreach (var eKingdom in Empires.SelectMany(empire => empire.Kingdoms))
-        // {
-        //     foreach (var barony in eKingdom.Duchies.SelectMany(duchy => duchy.Counties.SelectMany(county => county.Baronies)))
-        //     {
-        //         csv += string.Join(";", barony.ProvinceId, barony.ColorRgbCsv, barony.Name?.ToUpper(), "x;\n");
-        //     }
-        // }
+
         var baronies = Empires.SelectMany(e => e.Kingdoms).SelectMany(k => k.Duchies).SelectMany(d => d.Counties)
             .SelectMany(c => c.Baronies).ToList();
+        foreach (var barony in baronies)
+        {
+            csv += string.Join(";", barony.ProvinceId, barony.ColorRgbCsv, barony.Name?.ToUpper(), "x;\n");
+        }
         if (baronies.Count <= 0)
             return false;
         writer.WriteLine(csv);
