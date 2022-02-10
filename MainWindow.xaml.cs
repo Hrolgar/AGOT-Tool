@@ -93,10 +93,10 @@ public partial class MainWindow
         StatusPanel.Children.Add(Extensions.StatusTextBox(generatedLandedT, "Landed Title"));
         
         var generatedHistoryP = _generateHistoryProvinces.Generate(_exportDirectory);
-        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedHistoryP, "Default Map"));
+        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedHistoryP, "History Provinces"));
 
         var generatedDefinition = _generateDefinition.Generate(_exportDirectory);
-        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedDefinition, "Default Map"));
+        StatusPanel.Children.Add(Extensions.StatusTextBox(generatedDefinition, "Definition"));
 
         var generatedDefaultM = _generateDefaultMap.Generate(_exportDirectory, westerosSeaDataTable);
         StatusPanel.Children.Add(Extensions.StatusTextBox(generatedDefaultM, "Default Map", " Due to Excel sheet being empty."));

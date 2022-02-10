@@ -154,7 +154,7 @@ public class County : Base
 
 public class Barony : Base
 {
-    public int ProvinceId { get; set; }
+    public int? ProvinceId { get; set; }
     
     public string Culture { get; set; }
     public string Religion { get; set; }
@@ -163,7 +163,7 @@ public class Barony : Base
     public string Terrain { get; set; }
     public string? ColorRgbCsv => Color?.Replace(" ", ";");
 
-    public Barony (string? name, string? color, int provinceId, string culture, string religion, string holdingType, string provinceHistory, string terrain) : base(name, color)
+    public Barony (string? name, string? color, int? provinceId, string culture, string religion, string holdingType, string provinceHistory, string terrain) : base(name, color)
     {
         Name = name;
         Color = color;

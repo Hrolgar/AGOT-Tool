@@ -10,15 +10,8 @@ public class GenerateLandedTitle : GenerateClasses
         var folderStruct = Directory.CreateDirectory(@$"{generatedFilePath}\common\landed_titles\");
         var fileName = @$"{folderStruct}\01_landed_titles.txt";
         var streamWriter = new StreamWriter(fileName, false, Encoding.Default);
-
-        var dict = new Dictionary<int, string>()
-        {
-            { 0, "Comment" }, { 1, "Province ID" }, { 2, "Province Color" }, { 3, "Province name" }, { 4, "(O)cean, (R)ivers, (L)akes, (W)astelands" }, 
-            { 5, "Renamings" }, { 6, "Empire" }, { 7, "Kingdom" }, { 8, "Duchy" }, { 9, "County" }, { 10, "Culture" }, { 11, "Religion" },
-            { 12, "Terrain" }, { 13, "Climate" }, { 14, "Holdyng Type" }, { 15, "County Title Color" }, { 16, "Duchy Title Color" }, 
-            { 17, "Kingdom Title Color" }, { 18, "Empire Title Color" }, { 19, "definite_form" }, { 20, "ai_primary_priority" }, 
-            { 21, "can_create" }, { 22, "can_create_on_partition" }, { 23, "can_be_named_after_dynasty" }, { 24, "Province History" }
-        };
+        
+        var columnDictionary = dataTable.Columns.Cast<DataColumn>().ToDictionary(tableColumn => tableColumn.Ordinal, tableColumn => tableColumn.ColumnName);
 
         Empire empire = null!;
         Kingdom kingdom = null!;
@@ -27,7 +20,8 @@ public class GenerateLandedTitle : GenerateClasses
 
         foreach (DataRow row in dataTable.Rows)
         {
-            var provinceColors = row.ItemArray[2]?.ToString().HexToRgb();
+            var provinceId = row.ItemArray[columnDictionary.First(d => d.Value == "Province ID").Key]?.ToInt();
+            var provinceColors = row.ItemArray[columnDictionary.First(d => d.Value == "Province Colour").Key]?.ToString().HexToRgb();
             var countyColors = row.ItemArray[15]?.ToString();
             var duchyColors = row.ItemArray[16]?.ToString();
             var kingdomColors = row.ItemArray[17]?.ToString();
@@ -40,7 +34,6 @@ public class GenerateLandedTitle : GenerateClasses
 
             var baronyName = row.ItemArray[3]?.ToString();
 
-            var provId = row.ItemArray[1].ToInt();
             var culture = row.ItemArray[10]?.ToString();
             var religion = row.ItemArray[11]?.ToString();
             var holdingType = row.ItemArray[14]?.ToString();
@@ -107,7 +100,7 @@ public class GenerateLandedTitle : GenerateClasses
 
             if (!baronyName.IsEmptyOrNull())
             {
-                var barony = new Barony(baronyName, provinceColors, provId, culture, religion, holdingType, provinceHistory, terrain);
+                var barony = new Barony(baronyName, provinceColors, provinceId, culture, religion, holdingType, provinceHistory, terrain);
                 
                 county?.AddBarony(barony);
             }

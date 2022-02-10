@@ -36,7 +36,7 @@ public static class Extensions
     {
         var textBox = new TextBox()
         {
-            Text = $"{txt} {(success ? "successfully generated." : "failed to generate.")} {reason}", 
+            Text = $"{txt} {(success ? "successfully generated." : "failed to generate.")} {(success ? "" : reason)}", 
             Foreground = success ? Brushes.Green : Brushes.DarkRed, Name = "txtB", Background = Brushes.DarkGray, TextWrapping = TextWrapping.Wrap,
         };
         return textBox;
