@@ -1,4 +1,6 @@
-﻿namespace AGOT.ExtensionsHelpers;
+﻿using System.Collections;
+
+namespace AGOT.ExtensionsHelpers;
 public static class Extensions
 {
     [DllImport("Kernel32")]
@@ -41,4 +43,34 @@ public static class Extensions
         };
         return textBox;
     }
+
+    public static DockPanel SheetDockElement(IEnumerable<string>? dataList, string textBlock, string containsTxt, string cbName)
+    {
+        var dock = new DockPanel();
+
+        var txt = new TextBlock()
+        {
+            Text = $"{textBlock} "
+        };
+
+        var cB = new ComboBox( )
+        {
+            Width = 150,
+            ItemsSource = dataList,
+            SelectedItem =  dataList.FirstOrDefault(d => d.ToLower().Contains(containsTxt.ToLower())) ?? "",
+            Name = cbName,
+        };
+        
+        cB.DropDownClosed += (sender, args) =>
+        {
+            MainWindow.ComboBoxEvent(cB);
+        };
+        dock.Children.Add(txt);
+        dock.Children.Add(cB);
+        return dock;
+    }
+
+    public static int GetColumnNumber (this Dictionary<string, int> asd, string columnName) => asd[columnName];
+
+    
 }

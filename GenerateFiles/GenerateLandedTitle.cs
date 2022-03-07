@@ -12,6 +12,7 @@ public class GenerateLandedTitle : GenerateClasses
         var streamWriter = new StreamWriter(fileName, false, Encoding.Default);
         
         var columnDictionary = dataTable.Columns.Cast<DataColumn>().ToDictionary(tableColumn => tableColumn.Ordinal, tableColumn => tableColumn.ColumnName);
+        var asd = dataTable.Columns.Cast<DataColumn>().ToDictionary( tableColumn => tableColumn.ColumnName, tableColumn => tableColumn.Ordinal);
 
         Empire empire = null!;
         Kingdom kingdom = null!;
@@ -20,7 +21,9 @@ public class GenerateLandedTitle : GenerateClasses
 
         foreach (DataRow row in dataTable.Rows)
         {
-            var provinceId = row.ItemArray[columnDictionary.First(d => d.Value == "Province ID").Key]?.ToInt();
+            // var provinceId = row.ItemArray[columnDictionary.First(d => d.Value == "Province ID").Key]?.ToInt();
+
+            var provinceId = row.ItemArray[asd.GetColumnNumber("Province ID")].ToInt();
             var provinceColors = row.ItemArray[columnDictionary.First(d => d.Value == "Province Colour").Key]?.ToString().HexToRgb();
             var countyColors = row.ItemArray[15]?.ToString();
             var duchyColors = row.ItemArray[16]?.ToString();
@@ -31,7 +34,6 @@ public class GenerateLandedTitle : GenerateClasses
             var kingdomName = row.ItemArray[7]?.ToString();
             var duchyName = row.ItemArray[8]?.ToString();
             var countyName = row.ItemArray[9]?.ToString();
-
             var baronyName = row.ItemArray[3]?.ToString();
 
             var culture = row.ItemArray[10]?.ToString();

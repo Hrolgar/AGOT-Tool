@@ -10,8 +10,8 @@
 
     <Grid ShowGridLines="false">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"></ColumnDefinition>
-            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="425"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -43,12 +43,15 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" Height="30" Click="ExcelFile_OnClick" 
                                 Padding="10,0" Width="100"/>
-                        <TextBox Margin="20,15" Background="White" BorderThickness="0"
-                                 Height="25"
+                        <TextBox Margin="20,15" Background="DarkGray" BorderThickness="0"
+                                 Height="25" Foreground="black" FontWeight="Bold"
                                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                 Name="ExcelFileTb" />
+                                 Name="ExcelFileTb"/>
 
                     </DockPanel>
+                    <StackPanel x:Name="Sheets">
+                        
+                    </StackPanel>
                     <Label Content="Choose a folder for the new files:"
                            Target="{Binding ElementName=NewFilesButton }" />
                     <DockPanel>
@@ -56,8 +59,8 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" Height="30" Click="NewFiles_OnClick" 
                                 Padding="10,0" Width="100"/>
-                        <TextBox Margin="20,15" Background="White" BorderThickness="0"
-                                 Height="25"
+                        <TextBox Margin="20,15" Background="DarkGray" BorderThickness="0"
+                                 Height="25" Foreground="black" FontWeight="Bold"
                                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                  Name="NewFilesTb" />
 
